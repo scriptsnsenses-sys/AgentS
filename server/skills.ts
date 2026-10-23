@@ -15,7 +15,8 @@ export class Skills {
     const manifest=JSON.parse(await fs.readFile(path.join(this.root,'skills','manifest.json'),'utf8')) as {id:string;path:string;source:string;license:string}[];
     const bundled:Skill[]=[];
     for(let i=0;i<manifest.length;i+=32){
-      bundled.push(...await Promise.all(manifest.slice(i,i+32).map(async entry=>{const file=path.resolve(this.root,entry.path);const content=await fs.readFile(file,'utf8');const header=parseSkill(content);return {...header,...entry,path:file,content,scope:'builtin' as const,enabled:true};})));
+      const chunk=await Promise.all(manifest.slice(i,i+32).map(async entry=>{const file=path.resolve(this.root,entry.path);const content=await fs.readFile(file,'utf8').catch(error=>{if((error as NodeJS.ErrnoException).code==='ENOENT')return '';throw error;});if(!content)return null;const header=parseSkill(content);return {...header,...entry,path:file,content,scope:'builtin' as const,enabled:true};}));
+      bundled.push(...chunk.filter(entry=>entry!==null) as Skill[]);
     }
     this.bundled=bundled;
   }
