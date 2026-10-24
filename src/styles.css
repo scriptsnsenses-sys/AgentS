@@ -1299,3 +1299,64 @@ html[data-theme=light] .file-preview{background:rgba(255,255,255,.65)}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto !important;animation:none !important;transition:none !important}
 }
+
+/* ---------- v0.2 · in-app console ---------- */
+.terminal-panel{min-height:0}
+.terminal-sessions>button{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono)}
+.terminal-console-wrap{flex:1;min-height:0;display:flex;flex-direction:column}
+.terminal-console{flex:1;overflow:auto;min-height:60px;padding:4px 2px 10px;font-family:var(--mono);font-size:10.5px;line-height:1.65}
+.terminal-empty{color:var(--muted);padding:14px 6px;line-height:1.9}
+.terminal-empty strong{color:var(--text)}
+.terminal-block{padding:7px 10px;border-radius:var(--r-sm);border:1px solid transparent}
+.terminal-block:hover{border-color:var(--line-soft);background:var(--surface)}
+.terminal-block .terminal-block{padding:0;border:0;background:none}
+.terminal-cmdline{display:flex;align-items:baseline;gap:7px;color:var(--text);flex-wrap:wrap}
+.terminal-path{color:var(--mint);opacity:.85;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.terminal-arrow{color:var(--lime)}
+.terminal-cmdline code{font-family:var(--mono);font-size:10.5px;color:var(--text);background:none;box-shadow:none;padding:0;word-break:break-all}
+.terminal-out{margin:5px 0 2px 14px;color:var(--text);opacity:.88;white-space:pre-wrap;word-break:break-word;user-select:text;cursor:text}
+.terminal-exit{margin-left:14px;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+.terminal-exit.ok{color:#7bd68c}
+.terminal-exit.err{color:var(--danger)}
+.terminal-exit.live{color:var(--amber);display:inline-flex;align-items:center;gap:6px}
+.terminal-exit.live::after{content:"";width:5px;height:5px;border-radius:50%;background:var(--amber);animation:pulse 1.4s ease-in-out infinite}
+.terminal-input{border-top:1px solid var(--line);padding-top:9px;margin-top:4px}
+.terminal-input .terminal-path{align-self:center}
+.terminal-input input{flex:1;min-width:120px;font-size:11px}
+.terminal-input input::placeholder{color:var(--faint)}
+html[data-theme=light] .terminal-console{background:rgba(255,255,255,.35);border-radius:var(--r-sm)}
+html[data-theme=light] .terminal-out{color:#2c352d}
+
+/* ---------- v0.2 · polish pass ---------- */
+.composer textarea{font-size:13px}
+.composer{transition:border-color .25s ease,box-shadow .25s ease}
+.composer:focus-within{transition:border-color .25s ease,box-shadow .25s ease}
+.composer-toolbar select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5' viewBox='0 0 8 5'%3E%3Cpath d='M.7.7 4 4 7.3.7' stroke='%239aa69d' fill='none' stroke-width='1.2'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 4px center;padding-right:16px;border-radius:var(--r-sm)
+}
+.composer-toolbar select:hover{background-color:var(--surface)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--ring);outline-offset:1px}
+.messages>*{animation:rise .28s cubic-bezier(.2,.7,.3,1)}
+@keyframes rise{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.activity-item>button,.activity-result>button{border-radius:var(--r-sm)}
+.activity-item>button:hover,.activity-result>button:hover{background:var(--surface)}
+.working-line{animation:pulse-soft 2.2s ease-in-out infinite}
+@keyframes pulse-soft{0%,100%{opacity:1}50%{opacity:.55}}
+.welcome-eyebrow{letter-spacing:.32em}
+.welcome h1{letter-spacing:-.015em}
+.message.user-message .user-text{box-shadow:var(--inset-hi)}
+.kbd,kbd{font-family:var(--mono);font-size:8.5px;color:var(--muted);background:var(--raised);border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:2px 5px}
+.new-task kbd,.search-nav kbd{margin-left:auto}
+.bottom-panel{transition:height .3s cubic-bezier(.2,.7,.3,1)}
+.delegation-link{transition:border-color .2s ease,background .2s ease}
+.delegation-link:hover{background:var(--surface)}
+.settings-content select,.modal select,.field select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='6' viewBox='0 0 9 6'%3E%3Cpath d='M1 1.5 4.5 5 8 1.5' stroke='%239aa69d' fill='none' stroke-width='1.3'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 10px center;padding-right:30px
+}
+.panel-tabs>button{display:inline-flex;align-items:center;gap:6px}
+@media(prefers-reduced-motion:reduce){
+  .messages>*,.working-line,.terminal-exit.live::after{animation:none}
+  .bottom-panel{transition:none}
+}

@@ -4,7 +4,7 @@ import { randomBytes, timingSafeEqual } from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { z } from 'zod';
-import { providerSchema, settingsSchema, ruleSchema, memorySchema, workflowSchema, mcpSchema, modeSchema, type Project, type Provider, type Task, type Skill, type McpConfig, type Workflow } from '../shared/contracts.ts';
+import { providerSchema, settingsSchema, ruleSchema, memorySchema, workflowSchema, mcpSchema, modeSchema, APP_VERSION, type Project, type Provider, type Task, type Skill, type McpConfig, type Workflow } from '../shared/contracts.ts';
 import { Store } from './storage.ts';
 import { Vault } from './vault.ts';
 import { Permissions } from './permissions.ts';
@@ -42,7 +42,7 @@ export async function createApp(options:{root:string;dataDirectory:string;port:n
     next();
   });
   app.use(express.json({limit:'3mb'}));
-  app.get('/api/session',(_req,res)=>{res.cookie('agentscope_session',session,{httpOnly:true,sameSite:'strict',path:'/'});res.json({ok:true,vault:vault.status(),version:'0.1.0'});});
+  app.get('/api/session',(_req,res)=>{res.cookie('agentscope_session',session,{httpOnly:true,sameSite:'strict',path:'/'});res.json({ok:true,vault:vault.status(),version:APP_VERSION});});
   const project=(id:string)=>{const p=store.get<Project>('projects',id);if(!p)throw new Error('Project not found.');return p;};
   const publicProviders=()=>store.all<Provider>('providers').map(p=>({...p,...vault.has(p.id)}));
   app.get('/api/state',(_req,res)=>res.json({projects:store.all('projects'),providers:publicProviders(),tasks:store.all<Task>('tasks'),settings:runtime.settings(),vault:vault.status(),approvals:permissions.list(),plugins:plugins.list(),workflows:store.all('workflows'),mcp:store.all('mcp'),skillCount:skills.list().length,skillSources:new Set(skills.list().map(s=>s.source)).size}));
@@ -93,7 +93,9 @@ export async function createApp(options:{root:string;dataDirectory:string;port:n
   app.delete('/api/mcp/:id',async(req,res)=>{await mcp.disconnect(req.params.id);store.delete('mcp',req.params.id);res.json({ok:true});});
   app.post('/api/mcp/:id/inspect',async(req,res)=>{const config=store.get<McpConfig>('mcp',req.params.id);if(!config)throw new Error('MCP server not found.');res.json(await mcp.tools(config));});
   app.get('/api/terminals',(_req,res)=>res.json(terminal.list()));
-  app.post('/api/terminals',async(req,res)=>{const {projectId,command}=z.object({projectId:z.string(),command:z.string().min(1).max(16000)}).parse(req.body);const p=project(projectId);res.json(await terminal.run('manual',p.root,command,3600000,true,new AbortController().signal));});
+  app.get('/api/terminals/shell',(req,res)=>{const p=project(z.string().parse(req.query.projectId));res.json({cwd:terminal.shellCwd(p.id,p.root)});});
+  app.post('/api/terminals/shell',(req,res)=>{const {projectId,command}=z.object({projectId:z.string(),command:z.string().min(1).max(16000)}).parse(req.body);const p=project(projectId);res.json(terminal.runShell(p.id,p.root,command));});
+  app.post('/api/terminals/shell/reset',(req,res)=>{const {projectId}=z.object({projectId:z.string()}).parse(req.body);const p=project(projectId);terminal.resetShell(p.id);res.json({ok:true,cwd:p.root});});
   app.post('/api/terminals/:id/stop',(req,res)=>{terminal.stop(req.params.id);res.json({ok:true});});
   app.get('/api/usage',(_req,res)=>res.json(store.all<UsageRecord>('usage')));
   app.get('/api/checkpoints',async(req,res)=>{const checkpoints=store.all<Checkpoint>('checkpoints').filter(c=>c.projectId===req.query.projectId);const results=await Promise.all(checkpoints.map(async c=>{let current='';try{current=(await new Workspace(project(c.projectId).root,store,c.projectId).read(c.path)).content;}catch(e){if((e as NodeJS.ErrnoException).code!=='ENOENT')throw e;}return {...c,diff:createPatch(c.path,c.before??'',current)};}));res.json(results);});

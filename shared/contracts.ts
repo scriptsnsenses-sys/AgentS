@@ -1,4 +1,5 @@
 import { z } from 'zod';
+export const APP_VERSION = '0.2.0';
 export const id = () => crypto.randomUUID();
 export const modeSchema = z.enum(['ask', 'code', 'agent', 'workflow']);
 export type Mode = z.infer<typeof modeSchema>;
@@ -28,11 +29,37 @@ export type Capability = z.infer<typeof capabilitySchema>;
 export const ruleSchema = z.object({ id: z.string(), capability: capabilitySchema, pattern: z.string().min(1).max(20000), exact: z.boolean().optional(), decision: z.enum(['allow','ask','deny']), scope: z.enum(['session','project','global']), projectId: z.string().optional() });
 export type Rule = z.infer<typeof ruleSchema>;
 export interface Approval { id: string; taskId: string; projectId: string; capability: Capability; target: string; description: string }
+export const toolCallLanguageSchema = z.enum(['auto','english','hindi','spanish','french','german','portuguese','italian','dutch','polish','turkish','arabic','russian','chinese','japanese','korean','indonesian','vietnamese']);
+export type ToolCallLanguage = z.infer<typeof toolCallLanguageSchema>;
+export const TOOL_CALL_LANGUAGES: { id: ToolCallLanguage; label: string; nativeLabel: string }[] = [
+  { id: 'auto', label: 'Auto', nativeLabel: 'follow each request' },
+  { id: 'english', label: 'English', nativeLabel: 'English' },
+  { id: 'hindi', label: 'Hindi', nativeLabel: 'हिन्दी' },
+  { id: 'spanish', label: 'Spanish', nativeLabel: 'Español' },
+  { id: 'french', label: 'French', nativeLabel: 'Français' },
+  { id: 'german', label: 'German', nativeLabel: 'Deutsch' },
+  { id: 'portuguese', label: 'Portuguese', nativeLabel: 'Português' },
+  { id: 'italian', label: 'Italian', nativeLabel: 'Italiano' },
+  { id: 'dutch', label: 'Dutch', nativeLabel: 'Nederlands' },
+  { id: 'polish', label: 'Polish', nativeLabel: 'Polski' },
+  { id: 'turkish', label: 'Turkish', nativeLabel: 'Türkçe' },
+  { id: 'arabic', label: 'Arabic', nativeLabel: 'العربية' },
+  { id: 'russian', label: 'Russian', nativeLabel: 'Русский' },
+  { id: 'chinese', label: 'Chinese', nativeLabel: '中文' },
+  { id: 'japanese', label: 'Japanese', nativeLabel: '日本語' },
+  { id: 'korean', label: 'Korean', nativeLabel: '한국어' },
+  { id: 'indonesian', label: 'Indonesian', nativeLabel: 'Bahasa Indonesia' },
+  { id: 'vietnamese', label: 'Vietnamese', nativeLabel: 'Tiếng Việt' },
+];
+export function toolCallLanguageLabel(id: string): string {
+  return TOOL_CALL_LANGUAGES.find(language => language.id === id)?.label ?? id;
+}
 export const settingsSchema = z.object({
   maxSteps: z.number().int().min(1).max(100).default(25), contextBudget: z.number().int().min(2000).max(200000).default(16000),
   taskLimit: z.number().positive().nullable().default(null), dailyLimit: z.number().positive().nullable().default(null), monthlyWarning: z.number().positive().nullable().default(null),
   routing: z.boolean().default(false), fastProviderId: z.string().default(''), fastModelId: z.string().default(''),
   allowDelegation: z.boolean().default(false), browserEnabled: z.boolean().default(false),
+  toolCallLanguage: toolCallLanguageSchema.default('auto'),
   theme: z.enum(['dark','light']).default('dark'), shortcuts: z.record(z.string(),z.string()).default({'palette':'mod+k','new':'mod+shift+o','terminal':'mod+`','stop':'Escape'})
 });
 export type Settings = z.infer<typeof settingsSchema>;

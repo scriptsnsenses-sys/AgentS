@@ -1,5 +1,5 @@
 import type { AgentEvent, Message, Model, Project, Provider, Settings, Task, Usage, Workflow } from '../shared/contracts.ts';
-import { settingsSchema } from '../shared/contracts.ts';
+import { settingsSchema, toolCallLanguageLabel } from '../shared/contracts.ts';
 import { Store } from './storage.ts';
 import type { ProviderAdapter } from './providers.ts';
 import { ContextEngine, compressConversation, compressOutput, estimateTokens } from './context.ts';
@@ -51,7 +51,8 @@ export class Runtime {
       const selected=this.skills.select(prompt,project.id);this.store.emit(id,'skills',{skills:selected.map(s=>({id:s.id,name:s.name}))});
       const retrieval=this.context.retrieve(project.id,id,prompt,Math.min(6000,settings.contextBudget/3));this.store.emit(id,'context',{...retrieval,text:undefined});
       const memories=this.context.memories(project.id,id,prompt);
-      const baseSystem=`${SYSTEM}\nMode: ${task.mode}. Project: ${project.name}. Root: ${project.root}.\nRelevant memories:\n${memories.map(m=>m.title+': '+m.content).join('\n')}\nRelevant repository excerpts:\n${retrieval.text}\nRelevant skill guidance:\n${selected.map(s=>`${s.name} (${s.source}):\n${s.content.slice(0,7000)}`).join('\n\n')}`;
+      const language = settings.toolCallLanguage === 'auto' ? '' : `\nTool call language: every piece of natural-language content you produce — narration between tool calls, reasoning, explanations, commit messages, titles, and final reports — must be written in ${toolCallLanguageLabel(settings.toolCallLanguage)}. Reply to the user in ${toolCallLanguageLabel(settings.toolCallLanguage)} even when the request is written in another language. Keep code, shell commands, file paths, identifiers, and quoted error strings verbatim.`;
+      const baseSystem=`${SYSTEM}\nMode: ${task.mode}. Project: ${project.name}. Root: ${project.root}.${language}\nRelevant memories:\n${memories.map(m=>m.title+': '+m.content).join('\n')}\nRelevant repository excerpts:\n${retrieval.text}\nRelevant skill guidance:\n${selected.map(s=>`${s.name} (${s.source}):\n${s.content.slice(0,7000)}`).join('\n\n')}`;
       let messages=this.store.get<Message[]>('messages',id)??[];
       const replied=new Set(messages.filter(m=>m.role==='tool').map(m=>m.toolCallId));
       messages=messages.flatMap(m=>[m,...(m.toolCalls??[]).filter(call=>!replied.has(call.id)).map(call=>({role:'tool' as const,toolCallId:call.id,name:call.name,content:'Execution was interrupted before a result was recorded. Inspect current state before retrying.'}))]);

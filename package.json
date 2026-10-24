@@ -1,6 +1,6 @@
 {
   "name": "@ozy/agentscope",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "description": "Your model. A better agent around it. A local-first agent workspace by ozy.",

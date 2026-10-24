@@ -10,6 +10,21 @@ Instead of locking you into one AI provider, AgentScope connects different model
 
 > Built by ozy.
 
+## ⬇ DOWNLOAD THE LATEST VERSION
+
+**[DOWNLOAD THE LATEST VERSION](https://github.com/scriptsnsenses-sys/AgentScope/releases/latest/download/AgentScope-setup.zip)**
+
+The download is a complete setup package — the full source, a prebuilt interface, and installers for Windows, macOS, and Linux. Unzip it anywhere and run the installer:
+
+```text
+Windows            double-click installer\install.ps1  (or right-click → Run with PowerShell)
+macOS / Linux      bash installer/install.sh
+```
+
+The installer checks Node.js 24+, sets up pnpm, installs dependencies, and creates an AgentScope shortcut on your Desktop and Start menu (or `~/bin/agentscope`). The shortcut starts the local service and opens your workspace at `http://127.0.0.1:4317`. Everything stays on your machine.
+
+To remove it later, run `installer\uninstall.ps1` (Windows) or `bash installer/uninstall.sh` (macOS/Linux) and delete the folder.
+
 ![AgentScope Workspace](docs/screenshots/workspace.png)
 
 ## Why AgentScope?
@@ -258,11 +273,24 @@ Install the browser runtime with:
 pnpm browser:install
 ```
 
+### Tool Call Language
+
+You choose the language your agent thinks out loud in.
+
+From **Settings → Agent → Tool call language**, pick any of 18 languages (English, Hindi, Spanish, Japanese, and more) or leave it on Auto to follow the language of each request. The agent then narrates tool calls, reasoning, commit messages, and final reports in that language — while code, commands, and file paths stay verbatim.
+
 ### Terminal
 
 Agents can execute terminal commands inside the selected project after receiving the required permission.
 
 AgentScope also tracks terminal sessions so commands can be inspected or stopped.
+
+The built-in **in-app terminal** (press `Ctrl+`` or open the Terminal panel) is a real console:
+
+- The working directory persists between commands — `cd` somewhere and stay there
+- Full ANSI color rendering, command history with ↑/↓, and Ctrl+C to stop a running command
+- Live output while a command runs, with exit codes per command
+- Agent terminal sessions appear alongside your console so you can inspect everything the agent ran
 
 ### Git Integration
 
@@ -450,6 +478,12 @@ pnpm 11.19.0
 
 ## Installation
 
+### From the download (recommended)
+
+Grab the [latest release package](https://github.com/scriptsnsenses-sys/AgentScope/releases/latest/download/AgentScope-setup.zip) and run the included installer — see [Download the latest version](#-download-the-latest-version) above.
+
+### From source
+
 Clone AgentScope:
 
 ```bash
@@ -572,6 +606,12 @@ pnpm skills:verify
 ```
 
 Verify bundled skills.
+
+```bash
+node scripts/make-release.mjs
+```
+
+Package the distributable setup zip into `release/` for GitHub Releases (requires a fresh `pnpm build` first).
 
 ## Screenshots
 
