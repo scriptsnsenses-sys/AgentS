@@ -10,6 +10,8 @@ Instead of locking you into one AI provider, AgentScope connects different model
 
 > Built by ozy.
 
+**[Landing page](https://scriptsnsenses-sys.github.io/AgentScope/)** · served from [`docs/index.html`](docs/index.html) via GitHub Pages.
+
 ## ⬇ DOWNLOAD THE LATEST VERSION
 
 **[DOWNLOAD THE LATEST VERSION](https://github.com/scriptsnsenses-sys/AgentScope/releases/latest/download/AgentScope-setup.zip)**

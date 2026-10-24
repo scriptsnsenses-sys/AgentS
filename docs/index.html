@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#0a0d0c"/>
+<title>AgentScope — Your model. A better agent around it.</title>
+<meta name="description" content="A local-first AI agent workspace. Bring your own model, keep your keys in an encrypted vault, and give the model real tools — 4,427+ skills, a permission system, and a true in-app terminal."/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230a0d0c'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%23ccf57f' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='2.4' fill='%23ccf57f'/%3E%3C/svg%3E"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"/>
+<style>
+  :root{
+    --bg:#0a0d0c; --surface:rgba(255,255,255,.048); --raised:rgba(255,255,255,.075);
+    --line:rgba(255,255,255,.09); --line-soft:rgba(255,255,255,.055);
+    --text:#eef3ee; --muted:#9aa69d; --faint:#66716a;
+    --lime:#ccf57f; --lime-solid:#bdea63; --on-lime:#1e2b10; --lime-bg:rgba(184,235,110,.09);
+    --mint:#7be2c8; --violet:#a89af8; --amber:#e8bd82; --danger:#ff9d94;
+    --ring:rgba(204,245,127,.3);
+    --shadow-lg:0 30px 80px -12px rgba(0,0,0,.65);
+    --inset-hi:inset 0 1px 0 rgba(255,255,255,.075);
+    --r-md:10px; --r-lg:14px; --r-xl:18px;
+    --mono:"JetBrains Mono","Cascadia Code",Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);color:var(--text);
+    font-family:Inter,"Segoe UI",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  ::selection{background:rgba(204,245,127,.85);color:#101608}
+  a{color:inherit;text-decoration:none}
+  .aurora{position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:
+      radial-gradient(52% 40% at 50% -6%, rgba(156,225,88,.13), transparent 70%),
+      radial-gradient(30% 28% at 84% 10%, rgba(96,210,190,.09), transparent 70%),
+      radial-gradient(26% 24% at 12% 22%, rgba(148,138,255,.075), transparent 70%);
+  }
+  .grain{position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .wrap{position:relative;z-index:2;max-width:1080px;margin:0 auto;padding:0 24px}
+
+  /* ---------- nav ---------- */
+  nav{position:sticky;top:0;z-index:10;backdrop-filter:blur(16px);background:rgba(10,13,12,.72);border-bottom:1px solid var(--line-soft)}
+  .nav-inner{max-width:1080px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:28px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:.01em}
+  .brand small{color:var(--faint);font-weight:400;margin-left:2px}
+  .nav-links{display:flex;gap:22px;margin-left:auto;font-size:13.5px;color:var(--muted)}
+  .nav-links a:hover{color:var(--text)}
+  @media(max-width:640px){.nav-links{display:none}}
+  .btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;font-weight:600;font-size:14px;
+    padding:10px 20px;transition:transform .25s cubic-bezier(.2,.7,.3,1),filter .25s,box-shadow .25s,border-color .25s;cursor:pointer}
+  .btn-lime{background:linear-gradient(135deg,#e4f7a8,var(--lime-solid) 55%,#9cc94b);color:var(--on-lime);
+    box-shadow:var(--inset-hi),0 10px 30px -8px rgba(180,240,100,.55)}
+  .btn-lime:hover{transform:translateY(-2px);filter:brightness(1.06);box-shadow:var(--inset-hi),0 16px 40px -8px rgba(180,240,100,.7)}
+  .btn-ghost{border:1px solid rgba(204,245,127,.26);color:#e7f5cf;background:var(--lime-bg)}
+  .btn-ghost:hover{border-color:rgba(204,245,127,.5);transform:translateY(-2px)}
+  .btn-nav{padding:8px 16px;font-size:13px}
+
+  /* ---------- hero ---------- */
+  header{padding:92px 0 60px;text-align:center}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:11px;letter-spacing:.3em;color:var(--muted);
+    border:1px solid var(--line);border-radius:999px;padding:8px 18px;background:var(--surface)}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 8px rgba(204,245,127,.8);animation:pulse 2.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+  h1{font-size:clamp(40px,7vw,72px);line-height:1.04;letter-spacing:-.02em;font-weight:650;margin:30px 0 22px}
+  h1 .gold{background:linear-gradient(115deg,#e4f7a8 0%,var(--lime) 45%,#8fbf52 90%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;font-weight:550}
+  .sub{max-width:600px;margin:0 auto;color:var(--muted);font-size:clamp(15px,2vw,18px);line-height:1.65}
+  .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:38px}
+  .cta-note{margin-top:16px;font-size:12.5px;color:var(--faint);letter-spacing:.04em}
+  .cta-note code{font-family:var(--mono);font-size:11.5px;color:var(--muted);background:var(--raised);border:1px solid var(--line);border-radius:6px;padding:2px 7px}
+
+  /* ---------- terminal mock ---------- */
+  .term{max-width:760px;margin:58px auto 0;border:1px solid var(--line);border-radius:var(--r-xl);
+    background:rgba(14,18,15,.8);box-shadow:var(--shadow-lg),var(--inset-hi);overflow:hidden;text-align:left}
+  .term-bar{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line-soft)}
+  .term-bar i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.12)}
+  .term-bar i:first-child{background:rgba(204,245,127,.55)}
+  .term-bar span{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--faint)}
+  .term-body{padding:18px 20px 22px;font-family:var(--mono);font-size:13px;line-height:2.05;color:#c8d2c6}
+  .term-body .p{color:var(--mint)} .term-body .a{color:var(--lime)} .term-body .d{color:var(--faint)}
+  .term-body .ok{color:#7bd68c} .term-body .am{color:var(--amber)} .term-body .v{color:var(--violet)}
+  @media(max-width:640px){.term-body{font-size:11px}}
+
+  /* ---------- sections ---------- */
+  section{padding:84px 0}
+  .kicker{font-size:11px;letter-spacing:.3em;color:var(--lime);text-transform:uppercase;text-align:center}
+  h2{font-size:clamp(28px,4vw,42px);letter-spacing:-.015em;font-weight:600;text-align:center;margin:14px 0 12px}
+  h2 em{font-style:normal;color:var(--lime)}
+  .section-sub{text-align:center;color:var(--muted);max-width:560px;margin:0 auto;font-size:15px;line-height:1.65}
+
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:48px}
+  @media(max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.grid{grid-template-columns:1fr}}
+  .card{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);padding:22px;
+    transition:transform .35s cubic-bezier(.2,.7,.3,1),border-color .35s,box-shadow .35s}
+  .card:hover{transform:translateY(-4px);border-color:rgba(204,245,127,.38);box-shadow:0 18px 44px -22px rgba(160,225,90,.35)}
+  .card .ico{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+    background:var(--lime-bg);border:1px solid rgba(204,245,127,.25);color:var(--lime);font-size:17px;margin-bottom:14px}
+  .card h3{font-size:15.5px;font-weight:600;margin-bottom:7px}
+  .card p{font-size:13px;line-height:1.6;color:var(--muted)}
+  .tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.08em;color:var(--on-lime);
+    background:var(--lime-solid);border-radius:5px;padding:2px 7px;margin-left:7px;vertical-align:2px}
+
+  .modes{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:48px}
+  @media(max-width:860px){.modes{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:480px){.modes{grid-template-columns:1fr}}
+  .mode{border:1px solid var(--line);border-radius:var(--r-lg);padding:20px;background:var(--surface);text-align:left}
+  .mode b{display:block;font-size:15px;margin-bottom:6px}
+  .mode b i{font-style:normal;color:var(--lime);font-family:var(--mono);font-size:11px;margin-right:9px}
+  .mode span{font-size:12.5px;color:var(--muted);line-height:1.55}
+
+  /* ---------- cta ---------- */
+  .cta{border:1px solid rgba(204,245,127,.2);border-radius:24px;padding:64px 32px;text-align:center;
+    background:
+      radial-gradient(60% 90% at 50% 0%, rgba(156,225,88,.1), transparent 70%),
+      rgba(255,255,255,.02);
+  }
+  .cta h2{margin-bottom:10px}
+  .cta .btn-lime{font-size:15px;padding:15px 34px;margin-top:26px}
+  .sha{margin-top:18px;font-family:var(--mono);font-size:11.5px;color:var(--faint)}
+
+  footer{border-top:1px solid var(--line-soft);padding:34px 0 44px;color:var(--faint);font-size:12.5px}
+  .foot-inner{display:flex;gap:18px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+  footer a{color:var(--muted)} footer a:hover{color:var(--text)}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="aurora"></div>
+<div class="grain"></div>
+
+<nav>
+  <div class="nav-inner">
+    <a class="brand" href="#top">
+      <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0e120f"/><circle cx="16" cy="16" r="7" fill="none" stroke="#ccf57f" stroke-width="2.6"/><circle cx="16" cy="16" r="2.4" fill="#ccf57f"/></svg>
+      AgentScope<small>by ozy</small>
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#modes">Modes</a>
+      <a href="https://github.com/scriptsnsenses-sys/AgentScope" target="_blank" rel="noreferrer">GitHub</a>
+    </div>
+    <a class="btn btn-lime btn-nav" href="https://github.com/scriptsnsenses-sys/AgentScope/releases/latest/download/AgentScope-setup.zip">Download</a>
+  </div>
+</nav>
+
+<div class="wrap" id="top">
+  <header>
+    <span class="eyebrow"><span class="dot"></span>LOCAL-FIRST&nbsp;·&nbsp;OPEN SOURCE&nbsp;·&nbsp;MIT</span>
+    <h1>Your model.<br/><span class="gold">A better agent around it.</span></h1>
+    <p class="sub">AgentScope connects the AI provider you choose to one agent system — real tools, 4,427+ skills, permissions, memory, and a true in-app terminal. Everything runs on your machine.</p>
+    <div class="cta-row">
+      <a class="btn btn-lime" href="https://github.com/scriptsnsenses-sys/AgentScope/releases/latest/download/AgentScope-setup.zip">⬇&nbsp; Download the latest version</a>
+      <a class="btn btn-ghost" href="https://github.com/scriptsnsenses-sys/AgentScope" target="_blank" rel="noreferrer">View source</a>
+    </div>
+    <p class="cta-note">Requires <code>Node.js 24+</code> · Windows, macOS &amp; Linux · installer included</p>
+
+    <div class="term" aria-hidden="true">
+      <div class="term-bar"><i></i><i></i><i></i><span>agentscope · console</span></div>
+      <div class="term-body">
+        <div><span class="p">~/projects/my-app</span> <span class="a">❯</span> cd src &amp;&amp; pnpm test</div>
+        <div><span class="d">working directory persists — you stay in src</span></div>
+        <div><span class="ok">✓</span> 40 tests passed <span class="d">(2.8s)</span></div>
+        <div><span class="p">~/projects/my-app/src</span> <span class="a">❯</span> <span class="am">agent:</span> <span class="v">refactor auth middleware</span></div>
+        <div><span class="d">→ tool calls narrated in your language · approvals enforced</span></div>
+        <div><span class="ok">✓</span> 3 files edited · checkpoints created</div>
+      </div>
+    </div>
+  </header>
+
+  <section id="features">
+    <p class="kicker">The suite</p>
+    <h2>Everything an agent needs, <em>nothing it shouldn't have</em></h2>
+    <p class="section-sub">Sensitive actions pass through an explicit permission system. Your keys live in an encrypted vault. No account, no telemetry, no cloud.</p>
+    <div class="grid">
+      <div class="card"><div class="ico">⌥</div><h3>Bring your own AI</h3><p>OpenAI, Anthropic, Gemini, OpenRouter, Ollama, or any OpenAI-compatible endpoint. Switch providers without losing your workflow.</p></div>
+      <div class="card"><div class="ico">✦</div><h3>4,427+ skills<span class="tag">BUNDLED</span></h3><p>Coding, debugging, DevOps, databases, security, automation and more — searched and loaded only when relevant.</p></div>
+      <div class="card"><div class="ico">⌸</div><h3>Permission system</h3><p>Shell, writes, deletes, network, git pushes — every sensitive action is allowed once, scoped, or denied. Deny always wins.</p></div>
+      <div class="card"><div class="ico">⏺</div><h3>True in-app terminal<span class="tag">NEW</span></h3><p>Persistent working directory, ANSI colors, command history, Ctrl+C — and every agent command inspectable alongside yours.</p></div>
+      <div class="card"><div class="ico">🌐</div><h3>Tool call language<span class="tag">NEW</span></h3><p>Pick the language your agent narrates in — 18 languages or Auto. Code and commands stay verbatim.</p></div>
+      <div class="card"><div class="ico">⚿</div><h3>Encrypted vault</h3><p>API keys sealed with scrypt key derivation and AES-256-GCM. The decryption key never leaves service memory.</p></div>
+      <div class="card"><div class="ico">⎘</div><h3>Safe file editing</h3><p>Hash-checked edits reject stale writes, and every change lands as a restorable checkpoint.</p></div>
+      <div class="card"><div class="ico">⌂</div><h3>Local first</h3><p>The service binds to 127.0.0.1:4317. Your projects never leave your machine — pair it with Ollama for fully local operation.</p></div>
+    </div>
+  </section>
+
+  <section id="modes">
+    <p class="kicker">Four modes</p>
+    <h2>The same agent, <em>the right leash</em></h2>
+    <div class="modes">
+      <div class="mode"><b><i>01</i>Ask</b><span>Read-only questions, repository analysis, and research. Network requests ask first.</span></div>
+      <div class="mode"><b><i>02</i>Code</b><span>Focused development tools with action approvals and automatic checkpoints.</span></div>
+      <div class="mode"><b><i>03</i>Agent</b><span>All enabled tools for larger tasks, inside the same permission boundaries.</span></div>
+      <div class="mode"><b><i>04</i>Workflow</b><span>Ordered, reusable multi-step runs — ship a change, debug and fix, security review.</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="cta">
+      <p class="kicker">Ready when you are</p>
+      <h2>Download. Install. <em>Ship.</em></h2>
+      <p class="section-sub">One zip — full source, prebuilt interface, and installers for Windows, macOS, and Linux. Unzip, run the installer, and your workspace opens at <b style="color:var(--text)">127.0.0.1:4317</b>.</p>
+      <a class="btn btn-lime" href="https://github.com/scriptsnsenses-sys/AgentScope/releases/latest/download/AgentScope-setup.zip">⬇&nbsp; DOWNLOAD THE LATEST VERSION</a>
+      <p class="sha">v0.2.0 · console, tool call languages, installer · MIT licensed</p>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap foot-inner">
+    <span>AgentScope — your model, a better agent around it. Built by <strong style="color:var(--muted)">ozy</strong>.</span>
+    <span>
+      <a href="https://github.com/scriptsnsenses-sys/AgentScope" target="_blank" rel="noreferrer">GitHub</a>
+      &nbsp;·&nbsp;
+      <a href="https://github.com/scriptsnsenses-sys/AgentScope/releases" target="_blank" rel="noreferrer">Releases</a>
+      &nbsp;·&nbsp;
+      <a href="https://opensource.org/license/mit" target="_blank" rel="noreferrer">MIT</a>
+    </span>
+  </div>
+</footer>
+</body>
+</html>
