@@ -11,7 +11,11 @@ Instead of locking you into one AI provider, AgentS connects different models to
 > **We are not AgentScope. This is a community build made on it.**
 > AgentS is an independent, open-source project built on top of [AgentScope](https://github.com/ozyrionhaha/AgentScope) by ozy. All credit for the original architecture and the bundled skill library goes to the upstream project.
 
-**[Landing page](https://scriptsnsenses-sys.github.io/AgentS/)** · served from [`docs/index.html`](docs/index.html) via GitHub Pages.
+**[Landing page](https://scriptsnsenses-sys.github.io/AgentS/)** · served from [`docs/index.html`](docs/index.html) via GitHub Pages. Also deployable to Render as a static site — one click:
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/scriptsnsenses-sys/AgentS)
+
+The Render blueprint hosts **only the landing page** (`docs/`) as a static site — no server, no port, no cloud edition of AgentS. The app itself stays local-first; the page's Install button downloads the release to the user's machine.
 
 ## ⬇ DOWNLOAD THE LATEST VERSION
 
