@@ -4,7 +4,7 @@ import { safeUrl } from './browser.ts';
 
 export function previewUrl(value:string,controlPort:number):string {
   const url=safeUrl(value);
-  if(Number(url.port|| (url.protocol==='https:'?443:80))===controlPort)throw new Error('Preview cannot open the AgentScope control service.');
+  if(Number(url.port|| (url.protocol==='https:'?443:80))===controlPort)throw new Error('Preview cannot open the AgentS control service.');
   return url.href;
 }
 

@@ -10,4 +10,4 @@ Find the first relevant error and correlate timestamp, request identifier and su
 
 ## Execution discipline
 
-Follow the user's current scope and AgentScope permissions. Load only supporting references relevant to this task. Use actual tool evidence, stop on an unexplained failure, and report what was verified and what remains uncertain. Never fabricate outputs or bypass denied actions.
+Follow the user's current scope and AgentS permissions. Load only supporting references relevant to this task. Use actual tool evidence, stop on an unexplained failure, and report what was verified and what remains uncertain. Never fabricate outputs or bypass denied actions.

@@ -8,7 +8,7 @@ export class Mcp {
   async connect(config:McpConfig){
     if(!config.enabled)throw new Error('Enable this MCP server first.');
     let client=this.clients.get(config.id);if(client)return client;
-    client=new Client({name:'agentscope',version:'0.1.0'},{capabilities:{}});
+    client=new Client({name:'AgentS',version:'0.1.0'},{capabilities:{}});
     const transport=config.transport==='stdio'?new StdioClientTransport({command:config.command??'',args:config.args,stderr:'pipe'}):new StreamableHTTPClientTransport(new URL(validateEndpoint(config.url??'')));
     if(config.transport==='stdio'&&!config.command)throw new Error('MCP command is required.');
     try{await client.connect(transport,{timeout:30000});}catch(error){await transport.close();throw error;}

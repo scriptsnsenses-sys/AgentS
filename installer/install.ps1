@@ -1,10 +1,10 @@
-# AgentScope installer — Windows
-# Run from the extracted AgentScope folder:
+# AgentS installer — Windows
+# Run from the extracted AgentS folder:
 #   powershell -ExecutionPolicy Bypass -File .\installer\install.ps1
 $ErrorActionPreference = "Stop"
 $root = Split-Path -Parent $PSScriptRoot
 Write-Host ""
-Write-Host "  AgentScope installer" -ForegroundColor Green
+Write-Host "  AgentS installer" -ForegroundColor Green
 Write-Host "  ---------------------" -ForegroundColor DarkGray
 Write-Host "  Folder: $root"
 Write-Host ""
@@ -47,24 +47,24 @@ if (-not (Test-Path "$root\dist\index.html")) {
 Write-Host "[OK] Interface ready" -ForegroundColor DarkGray
 
 # 4. Shortcuts (Desktop + Start Menu) pointing at the launcher
-$launcher = Join-Path $PSScriptRoot "launch-agentscope.bat"
+$launcher = Join-Path $PSScriptRoot "launch-agents.bat"
 $wsh = New-Object -ComObject WScript.Shell
 $desktop = [Environment]::GetFolderPath("Desktop")
 $startMenu = Join-Path ([Environment]::GetFolderPath("StartMenu")) "Programs"
 $icon = Join-Path $root "public" "favicon.svg"
-foreach ($location in @((Join-Path $desktop "AgentScope.lnk"), (Join-Path $startMenu "AgentScope.lnk"))) {
+foreach ($location in @((Join-Path $desktop "AgentS.lnk"), (Join-Path $startMenu "AgentS.lnk"))) {
   $shortcut = $wsh.CreateShortcut($location)
   $shortcut.TargetPath = $launcher
   $shortcut.WorkingDirectory = $PSScriptRoot
   $shortcut.IconLocation = "$env:SystemRoot\System32\shell32.dll,220"
-  $shortcut.Description = "AgentScope - your model, a better agent around it"
+  $shortcut.Description = "AgentS - your model, a better agent around it"
   $shortcut.Save()
 }
 Write-Host "[OK] Shortcuts created (Desktop + Start Menu)" -ForegroundColor DarkGray
 
 Write-Host ""
-Write-Host "  Installed. Start AgentScope from the desktop shortcut," -ForegroundColor Green
-Write-Host "  or run:  installer\launch-agentscope.bat" -ForegroundColor Green
+Write-Host "  Installed. Start AgentS from the desktop shortcut," -ForegroundColor Green
+Write-Host "  or run:  installer\launch-agents.bat" -ForegroundColor Green
 Write-Host "  It serves locally at http://127.0.0.1:4317" -ForegroundColor DarkGray
 Write-Host "  Uninstall anytime with:  installer\uninstall.ps1" -ForegroundColor DarkGray
 Write-Host ""

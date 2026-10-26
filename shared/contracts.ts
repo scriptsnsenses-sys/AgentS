@@ -1,5 +1,5 @@
 import { z } from 'zod';
-export const APP_VERSION = '0.2.0';
+export const APP_VERSION = '0.3.0';
 export const id = () => crypto.randomUUID();
 export const modeSchema = z.enum(['ask', 'code', 'agent', 'workflow']);
 export type Mode = z.infer<typeof modeSchema>;

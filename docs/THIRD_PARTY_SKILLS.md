@@ -2,7 +2,7 @@
 
 The expanded installed catalog and additional source credits are listed in [COMMUNITY_SKILLS.md](COMMUNITY_SKILLS.md). The inventory below records the original bundle; `skills/community-lock.json` is the complete installed third-party manifest.
 
-Pinned source assets, each distributed under its original license. AgentScope's MIT license does not replace these licenses. No upstream agent configuration, hooks, or telemetry is executed on installation. Assets are unmodified; UPSTREAM-LICENSE and PROVENANCE files are added. Some skills require separately installed tools or accounts.
+Pinned source assets, each distributed under its original license. AgentS's MIT license does not replace these licenses. No upstream agent configuration, hooks, or telemetry is executed on installation. Assets are unmodified; UPSTREAM-LICENSE and PROVENANCE files are added. Some skills require separately installed tools or accounts.
 
 ## https://github.com/angular/skills
 

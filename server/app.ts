@@ -35,7 +35,7 @@ export async function createApp(options:{root:string;dataDirectory:string;port:n
       if(req.headers['sec-fetch-site']==='cross-site'||(req.headers.origin&&!['http://localhost:'+options.port,'http://127.0.0.1:'+options.port].includes(req.headers.origin))){res.status(403).json({error:'Cross-origin requests are denied.'});return;}
       if(req.path!=='/api/session'){
         const token=req.headers.cookie?.split(';').map(c=>c.trim()).find(c=>c.startsWith('agentscope_session='))?.split('=')[1]??'';
-        if(token.length!==session.length||!timingSafeEqual(Buffer.from(token),Buffer.from(session))){res.status(401).json({error:'Open AgentScope locally to initialize your session.'});return;}
+        if(token.length!==session.length||!timingSafeEqual(Buffer.from(token),Buffer.from(session))){res.status(401).json({error:'Open AgentS locally to initialize your session.'});return;}
         if(req.method!=='GET'&&req.headers['x-agentscope']!=='1'){res.status(403).json({error:'Missing request protection header.'});return;}
       }
     }

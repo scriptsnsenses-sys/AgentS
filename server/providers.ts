@@ -823,7 +823,7 @@ function openAIResponseInput(req: ModelRequest): Record<string, unknown>[] {
 
     /*
      * Responses API reasoning items need to be replayed during stateless
-     * function-calling loops. AgentScope stores them inside ToolCall.signature.
+     * function-calling loops. AgentS stores them inside ToolCall.signature.
      */
     for (const toolCall of message.toolCalls ?? []) {
       const recovered = decodeOpaque(
@@ -1211,7 +1211,7 @@ export class Providers implements ProviderAdapter {
         max_output_tokens: m.maxOutput,
 
         /*
-         * AgentScope keeps its own conversation state, so use stateless
+         * AgentS keeps its own conversation state, so use stateless
          * Responses requests and replay required reasoning/tool items.
          */
         store: false,
@@ -1580,7 +1580,7 @@ export class Providers implements ProviderAdapter {
             toolCalls.push({
               /*
                * function_call_output expects call_id, so expose call_id as
-               * AgentScope's ToolCall.id.
+               * AgentS's ToolCall.id.
                */
               id: callId,
               name,

@@ -15,7 +15,7 @@ const sent: { url: string; authorization: string | null }[] = [];
 const base = 'http://127.0.0.1:4396';
 
 test.beforeAll(async () => {
-  root = await fs.mkdtemp(path.join(os.tmpdir(), 'agentscope-test-'));
+  root = await fs.mkdtemp(path.join(os.tmpdir(), 'AgentS-test-'));
   const project = path.join(root, 'project');
   await fs.mkdir(project);
   application = await createApp({

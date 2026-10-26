@@ -1,20 +1,21 @@
-# AgentScope
+# AgentS
 
 **Your model. A better agent around it.**
 
 4,427+ built-in and community skills ready to use across coding, debugging, web development, DevOps, databases, security, automation, game development, and more.
 
-AgentScope is an open-source, local-first AI agent workspace that lets you bring your own model and API keys while giving the model a powerful coding and automation environment.
+AgentS is an open-source, local-first AI agent workspace that lets you bring your own model and API keys while giving the model a powerful coding and automation environment.
 
-Instead of locking you into one AI provider, AgentScope connects different models to the same agent system, tools, skills, workspace, permissions, memory, workflows, and project context.
+Instead of locking you into one AI provider, AgentS connects different models to the same agent system, tools, skills, workspace, permissions, memory, workflows, and project context.
 
-> Built by ozy.
+> **We are not AgentScope. This is a community build made on it.**
+> AgentS is an independent, open-source project built on top of [AgentScope](https://github.com/ozyrionhaha/AgentScope) by ozy. All credit for the original architecture and the bundled skill library goes to the upstream project.
 
-**[Landing page](https://scriptsnsenses-sys.github.io/AgentScope/)** · served from [`docs/index.html`](docs/index.html) via GitHub Pages.
+**[Landing page](https://scriptsnsenses-sys.github.io/AgentS/)** · served from [`docs/index.html`](docs/index.html) via GitHub Pages.
 
 ## ⬇ DOWNLOAD THE LATEST VERSION
 
-**[DOWNLOAD THE LATEST VERSION](https://github.com/scriptsnsenses-sys/AgentScope/releases/latest/download/AgentScope-setup.zip)**
+**[DOWNLOAD THE LATEST VERSION](https://github.com/scriptsnsenses-sys/AgentS/releases/latest/download/AgentS-setup.zip)**
 
 The download is a complete setup package — the full source, a prebuilt interface, and installers for Windows, macOS, and Linux. Unzip it anywhere and run the installer:
 
@@ -23,21 +24,21 @@ Windows            double-click installer\install.ps1  (or right-click → Run w
 macOS / Linux      bash installer/install.sh
 ```
 
-The installer checks Node.js 24+, sets up pnpm, installs dependencies, and creates an AgentScope shortcut on your Desktop and Start menu (or `~/bin/agentscope`). The shortcut starts the local service and opens your workspace at `http://127.0.0.1:4317`. Everything stays on your machine.
+The installer checks Node.js 24+, sets up pnpm, installs dependencies, and creates an AgentS shortcut on your Desktop and Start menu (or `~/bin/agents`). The shortcut starts the local service and opens your workspace at `http://127.0.0.1:4317`. Everything stays on your machine.
 
 To remove it later, run `installer\uninstall.ps1` (Windows) or `bash installer/uninstall.sh` (macOS/Linux) and delete the folder.
 
-![AgentScope Workspace](docs/screenshots/workspace.png)
+![AgentS Workspace](docs/screenshots/workspace.png)
 
-## Why AgentScope?
+## Why AgentS?
 
 Most AI coding tools combine the model and the agent into one product.
 
-AgentScope separates them.
+AgentS separates them.
 
 You choose the model.
 
-AgentScope provides the agent around it.
+AgentS provides the agent around it.
 
 That means you can switch providers without losing the tools and workflow that make the model useful.
 
@@ -45,7 +46,7 @@ That means you can switch providers without losing the tools and workflow that m
 
 ### Bring your own AI
 
-AgentScope supports:
+AgentS supports:
 
 - OpenAI
 - Anthropic
@@ -60,7 +61,7 @@ You can configure multiple providers and models and switch between them dependin
 
 ### Four Agent Modes
 
-AgentScope includes four execution modes:
+AgentS includes four execution modes:
 
 | Mode | Purpose |
 | --- | --- |
@@ -73,7 +74,7 @@ AgentScope includes four execution modes:
 
 Models can work directly with your project using permission-controlled tools.
 
-AgentScope includes tools for:
+AgentS includes tools for:
 
 - Repository search
 - Project mapping
@@ -100,7 +101,7 @@ Tools are dynamically exposed when relevant instead of dumping every tool into e
 
 ### Permission System
 
-AgentScope does not silently give an AI unlimited access to your computer.
+AgentS does not silently give an AI unlimited access to your computer.
 
 Sensitive actions pass through a permission system.
 
@@ -128,7 +129,7 @@ This gives you control over what an agent is allowed to do.
 
 ### Safe File Editing
 
-AgentScope uses file hashes to detect stale edits before modifying files.
+AgentS uses file hashes to detect stale edits before modifying files.
 
 File changes can automatically create checkpoints so previous content can be restored.
 
@@ -136,7 +137,7 @@ Supported operations include exact replacements, patches, writes, deletes, and m
 
 ### Project Indexing
 
-When you add a project, AgentScope indexes the repository and builds searchable project context.
+When you add a project, AgentS indexes the repository and builds searchable project context.
 
 The agent can search:
 
@@ -152,17 +153,17 @@ This helps avoid repeatedly sending huge parts of the repository to the model.
 
 ### Context Efficiency
 
-AgentScope has a configurable context budget and retrieves relevant project information when needed.
+AgentS has a configurable context budget and retrieves relevant project information when needed.
 
 Instead of blindly loading an entire repository into every request, the agent can search and load the parts required for the task.
 
 ### Skills
 
-AgentScope has a built-in skill system.
+AgentS has a built-in skill system.
 
-AgentScope currently ships with 4,427 registered skills, combining built-in capabilities with a massive community skill library. Skills are searched and loaded only when relevant, so the model doesn't need all 4,427 in context at once.
+AgentS currently ships with 4,427 registered skills, combining built-in capabilities with a massive community skill library. Skills are searched and loaded only when relevant, so the model doesn't need all 4,427 in context at once.
 
-![AgentScope Skills](docs/screenshots/skills.png)
+![AgentS Skills](docs/screenshots/skills.png)
 
 Bundled skills cover areas including:
 
@@ -212,7 +213,7 @@ You can also import your own skills.
 
 ### Community Skills
 
-AgentScope can bundle compatible community-created skill libraries while keeping their attribution and licenses.
+AgentS can bundle compatible community-created skill libraries while keeping their attribution and licenses.
 
 Third-party skill information can be found in:
 
@@ -222,7 +223,7 @@ docs/THIRD_PARTY_SKILLS.md
 
 ### Plugins
 
-Skills, MCP servers, and workflows can be grouped into AgentScope plugins.
+Skills, MCP servers, and workflows can be grouped into AgentS plugins.
 
 Bundled plugin groups currently include:
 
@@ -244,7 +245,7 @@ Minecraft plugin and Discord bot development.
 
 ### MCP Support
 
-AgentScope supports the Model Context Protocol.
+AgentS supports the Model Context Protocol.
 
 MCP servers can use:
 
@@ -257,7 +258,7 @@ The agent can discover MCP tools and call them through the same permission syste
 
 ### Browser Automation
 
-AgentScope includes optional isolated browser automation powered by Playwright.
+AgentS includes optional isolated browser automation powered by Playwright.
 
 The agent can:
 
@@ -285,7 +286,7 @@ From **Settings → Agent → Tool call language**, pick any of 18 languages (En
 
 Agents can execute terminal commands inside the selected project after receiving the required permission.
 
-AgentScope also tracks terminal sessions so commands can be inspected or stopped.
+AgentS also tracks terminal sessions so commands can be inspected or stopped.
 
 The built-in **in-app terminal** (press `Ctrl+`` or open the Terminal panel) is a real console:
 
@@ -309,11 +310,11 @@ commits
 push
 ```
 
-Git operations still pass through AgentScope's permission system.
+Git operations still pass through AgentS's permission system.
 
 ### Memory
 
-AgentScope supports persistent memory with multiple scopes:
+AgentS supports persistent memory with multiple scopes:
 
 ```text
 User
@@ -327,7 +328,7 @@ Secrets should never be stored as memories.
 
 ### Workflows
 
-AgentScope supports reusable multi-step workflows.
+AgentS supports reusable multi-step workflows.
 
 Built-in workflows currently include:
 
@@ -361,13 +362,13 @@ Custom workflows can also be created.
 
 ### Model Comparison
 
-AgentScope can run the same prompt against multiple configured models so their responses can be compared.
+AgentS can run the same prompt against multiple configured models so their responses can be compared.
 
 This makes it easier to test models without changing your entire agent setup.
 
 ### Usage Tracking
 
-AgentScope records model usage information when the provider supplies it.
+AgentS records model usage information when the provider supplies it.
 
 It can track:
 
@@ -384,7 +385,7 @@ Pricing can be configured per model.
 
 ### Optional Agent Delegation
 
-AgentScope can delegate bounded tasks to specialized child agents.
+AgentS can delegate bounded tasks to specialized child agents.
 
 Available roles include:
 
@@ -398,7 +399,7 @@ Delegation is disabled by default because additional model calls can increase AP
 
 ## Local First
 
-AgentScope runs on your own computer.
+AgentS runs on your own computer.
 
 The server binds to:
 
@@ -408,7 +409,7 @@ http://127.0.0.1:4317
 
 It does not expose itself to your network by default.
 
-There is no required hosted AgentScope service and telemetry is disabled.
+There is no required hosted AgentS service and telemetry is disabled.
 
 Your projects remain on your machine.
 
@@ -416,7 +417,7 @@ Your projects remain on your machine.
 
 API credentials are never intentionally sent to the browser after being stored.
 
-AgentScope stores credentials inside its local encrypted vault.
+AgentS stores credentials inside its local encrypted vault.
 
 The vault uses:
 
@@ -427,7 +428,7 @@ AES-256-GCM authenticated encryption
 
 The vault requires a passphrase of at least 12 characters.
 
-Local AgentScope data is stored inside:
+Local AgentS data is stored inside:
 
 ```text
 .agentscope/
@@ -453,13 +454,13 @@ test-results/
 playwright-report/
 ```
 
-To completely reset a local AgentScope installation, stop AgentScope and delete:
+To completely reset a local AgentS installation, stop AgentS and delete:
 
 ```text
 .agentscope/
 ```
 
-This removes local AgentScope state, conversations, provider configuration, memories, and the encrypted credential vault.
+This removes local AgentS state, conversations, provider configuration, memories, and the encrypted credential vault.
 
 ## Requirements
 
@@ -471,7 +472,7 @@ pnpm
 Git - recommended
 ```
 
-AgentScope currently specifies:
+AgentS currently specifies:
 
 ```text
 Node >= 24
@@ -482,15 +483,15 @@ pnpm 11.19.0
 
 ### From the download (recommended)
 
-Grab the [latest release package](https://github.com/scriptsnsenses-sys/AgentScope/releases/latest/download/AgentScope-setup.zip) and run the included installer — see [Download the latest version](#-download-the-latest-version) above.
+Grab the [latest release package](https://github.com/scriptsnsenses-sys/AgentS/releases/latest/download/AgentS-setup.zip) and run the included installer — see [Download the latest version](#-download-the-latest-version) above.
 
 ### From source
 
-Clone AgentScope:
+Clone AgentS:
 
 ```bash
 git clone YOUR_REPOSITORY_URL
-cd agentscope
+cd AgentS
 ```
 
 Install dependencies:
@@ -499,7 +500,7 @@ Install dependencies:
 pnpm install
 ```
 
-Start AgentScope in development mode:
+Start AgentS in development mode:
 
 ```bash
 pnpm dev
@@ -513,14 +514,14 @@ http://127.0.0.1:4317
 
 ## First Setup
 
-When AgentScope starts for the first time:
+When AgentS starts for the first time:
 
 1. Create and unlock your local credential vault.
 2. Add an AI provider.
 3. Enter your own API key if the provider requires one.
 4. Configure at least one model.
 5. Add a local project directory.
-6. Choose your model and AgentScope mode.
+6. Choose your model and AgentS mode.
 7. Start working.
 
 Ollama can be used locally without a traditional cloud API key.
@@ -533,13 +534,13 @@ Build the frontend:
 pnpm build
 ```
 
-Start AgentScope:
+Start AgentS:
 
 ```bash
 pnpm start
 ```
 
-AgentScope will serve the built interface from:
+AgentS will serve the built interface from:
 
 ```text
 http://127.0.0.1:4317
@@ -571,7 +572,7 @@ Type-check and create a production frontend build.
 pnpm start
 ```
 
-Run AgentScope.
+Run AgentS.
 
 ```bash
 pnpm typecheck
@@ -601,7 +602,7 @@ Run type checking, tests, and the production build.
 pnpm browser:install
 ```
 
-Install Chromium for AgentScope browser automation.
+Install Chromium for AgentS browser automation.
 
 ```bash
 pnpm skills:verify
@@ -632,7 +633,7 @@ Package the distributable setup zip into `release/` for GitHub Releases (require
 ## Project Structure
 
 ```text
-agentscope/
+AgentS/
 ├── server/
 │   ├── app.ts
 │   ├── browser.ts
@@ -672,7 +673,7 @@ agentscope/
 
 ## Technology
 
-AgentScope is built with:
+AgentS is built with:
 
 ```text
 TypeScript
@@ -688,17 +689,17 @@ Model Context Protocol SDK
 
 ## Privacy
 
-AgentScope is designed as a local-first application.
+AgentS is designed as a local-first application.
 
-The browser communicates with the AgentScope service running on your computer. Provider requests are made by the local backend rather than directly by the frontend.
+The browser communicates with the AgentS service running on your computer. Provider requests are made by the local backend rather than directly by the frontend.
 
-Your configured AI provider will still receive the information AgentScope sends to that provider to complete your request.
+Your configured AI provider will still receive the information AgentS sends to that provider to complete your request.
 
-AgentScope itself does not require a hosted account.
+AgentS itself does not require a hosted account.
 
 ## Security
 
-AgentScope intentionally places potentially dangerous capabilities behind explicit permissions.
+AgentS intentionally places potentially dangerous capabilities behind explicit permissions.
 
 However, AI agents can execute code and terminal commands when permission is granted.
 
@@ -732,16 +733,16 @@ For changes involving skills, also run:
 pnpm skills:verify
 ```
 
-Keep changes focused and do not commit personal AgentScope data, credentials, `.env` files, or `.agentscope/`.
+Keep changes focused and do not commit personal AgentS data, credentials, `.env` files, or `.agentscope/`.
 
 ## License
 
-AgentScope is licensed under the **MIT License**.
+AgentS is licensed under the **MIT License**.
 
 Bundled third-party skills may use their own licenses. See the included third-party skill documentation and provenance files for details.
 
 ---
 
-**AgentScope**
+**AgentS**
 
 Your model. A better agent around it.

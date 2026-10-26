@@ -4,8 +4,8 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="theme-color" content="#0a0d0c"/>
-<title>AgentScope — Your model. A better agent around it.</title>
-<meta name="description" content="A local-first AI agent workspace. Bring your own model, keep your keys in an encrypted vault, and give the model real tools — 4,427+ skills, a permission system, and a true in-app terminal."/>
+<title>AgentS — Your model. A better agent around it.</title>
+<meta name="description" content="AgentS — a community build on AgentScope. A local-first AI agent workspace. Bring your own model, keep your keys in an encrypted vault, and give the model real tools — 4,427+ skills, a permission system, and a true in-app terminal."/>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230a0d0c'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%23ccf57f' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='2.4' fill='%23ccf57f'/%3E%3C/svg%3E"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -125,6 +125,9 @@
   .cta .btn-lime{font-size:15px;padding:15px 34px;margin-top:26px}
   .sha{margin-top:18px;font-family:var(--mono);font-size:11.5px;color:var(--faint)}
 
+  .notice{position:relative;z-index:2;text-align:center;font-size:12.5px;letter-spacing:.02em;color:var(--amber);
+    background:rgba(232,189,130,.07);border-bottom:1px solid rgba(232,189,130,.18);padding:9px 16px}
+  .notice strong{color:var(--text);font-weight:600}
   footer{border-top:1px solid var(--line-soft);padding:34px 0 44px;color:var(--faint);font-size:12.5px}
   .foot-inner{display:flex;gap:18px;align-items:center;flex-wrap:wrap;justify-content:space-between}
   footer a{color:var(--muted)} footer a:hover{color:var(--text)}
@@ -139,30 +142,32 @@
   <div class="nav-inner">
     <a class="brand" href="#top">
       <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0e120f"/><circle cx="16" cy="16" r="7" fill="none" stroke="#ccf57f" stroke-width="2.6"/><circle cx="16" cy="16" r="2.4" fill="#ccf57f"/></svg>
-      AgentScope<small>by ozy</small>
+      AgentS<small>community build</small>
     </a>
     <div class="nav-links">
       <a href="#features">Features</a>
       <a href="#modes">Modes</a>
-      <a href="https://github.com/scriptsnsenses-sys/AgentScope" target="_blank" rel="noreferrer">GitHub</a>
+      <a href="https://github.com/scriptsnsenses-sys/AgentS" target="_blank" rel="noreferrer">GitHub</a>
     </div>
-    <a class="btn btn-lime btn-nav" href="https://github.com/scriptsnsenses-sys/AgentScope/releases/latest/download/AgentScope-setup.zip">Download</a>
+    <a class="btn btn-lime btn-nav" href="https://github.com/scriptsnsenses-sys/AgentS/releases/latest/download/AgentS-setup.zip">Install</a>
   </div>
 </nav>
+
+<div class="notice"><strong>We are not AgentScope.</strong>&nbsp;This is a community build made on it.</div>
 
 <div class="wrap" id="top">
   <header>
     <span class="eyebrow"><span class="dot"></span>LOCAL-FIRST&nbsp;·&nbsp;OPEN SOURCE&nbsp;·&nbsp;MIT</span>
     <h1>Your model.<br/><span class="gold">A better agent around it.</span></h1>
-    <p class="sub">AgentScope connects the AI provider you choose to one agent system — real tools, 4,427+ skills, permissions, memory, and a true in-app terminal. Everything runs on your machine.</p>
+    <p class="sub">AgentS connects the AI provider you choose to one agent system — real tools, 4,427+ skills, permissions, memory, and a true in-app terminal. Everything runs on your machine.</p>
     <div class="cta-row">
-      <a class="btn btn-lime" href="https://github.com/scriptsnsenses-sys/AgentScope/releases/latest/download/AgentScope-setup.zip">⬇&nbsp; Download the latest version</a>
-      <a class="btn btn-ghost" href="https://github.com/scriptsnsenses-sys/AgentScope" target="_blank" rel="noreferrer">View source</a>
+      <a class="btn btn-lime" href="https://github.com/scriptsnsenses-sys/AgentS/releases/latest/download/AgentS-setup.zip">⬇&nbsp; Install AgentS</a>
+      <a class="btn btn-ghost" href="https://github.com/scriptsnsenses-sys/AgentS" target="_blank" rel="noreferrer">View source</a>
     </div>
     <p class="cta-note">Requires <code>Node.js 24+</code> · Windows, macOS &amp; Linux · installer included</p>
 
     <div class="term" aria-hidden="true">
-      <div class="term-bar"><i></i><i></i><i></i><span>agentscope · console</span></div>
+      <div class="term-bar"><i></i><i></i><i></i><span>AgentS · console</span></div>
       <div class="term-body">
         <div><span class="p">~/projects/my-app</span> <span class="a">❯</span> cd src &amp;&amp; pnpm test</div>
         <div><span class="d">working directory persists — you stay in src</span></div>
@@ -206,19 +211,19 @@
       <p class="kicker">Ready when you are</p>
       <h2>Download. Install. <em>Ship.</em></h2>
       <p class="section-sub">One zip — full source, prebuilt interface, and installers for Windows, macOS, and Linux. Unzip, run the installer, and your workspace opens at <b style="color:var(--text)">127.0.0.1:4317</b>.</p>
-      <a class="btn btn-lime" href="https://github.com/scriptsnsenses-sys/AgentScope/releases/latest/download/AgentScope-setup.zip">⬇&nbsp; DOWNLOAD THE LATEST VERSION</a>
-      <p class="sha">v0.2.0 · console, tool call languages, installer · MIT licensed</p>
+      <a class="btn btn-lime" href="https://github.com/scriptsnsenses-sys/AgentS/releases/latest/download/AgentS-setup.zip">⬇&nbsp; Install AgentS</a>
+      <p class="sha">v0.3.0 · a community build on AgentScope · MIT licensed</p>
     </div>
   </section>
 </div>
 
 <footer>
   <div class="wrap foot-inner">
-    <span>AgentScope — your model, a better agent around it. Built by <strong style="color:var(--muted)">ozy</strong>.</span>
+    <span><strong style="color:var(--muted)">AgentS</strong> is a community build on the open-source AgentScope project by ozy — we are not AgentScope.</span>
     <span>
-      <a href="https://github.com/scriptsnsenses-sys/AgentScope" target="_blank" rel="noreferrer">GitHub</a>
+      <a href="https://github.com/scriptsnsenses-sys/AgentS" target="_blank" rel="noreferrer">GitHub</a>
       &nbsp;·&nbsp;
-      <a href="https://github.com/scriptsnsenses-sys/AgentScope/releases" target="_blank" rel="noreferrer">Releases</a>
+      <a href="https://github.com/scriptsnsenses-sys/AgentS/releases" target="_blank" rel="noreferrer">Releases</a>
       &nbsp;·&nbsp;
       <a href="https://opensource.org/license/mit" target="_blank" rel="noreferrer">MIT</a>
     </span>

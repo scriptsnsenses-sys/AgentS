@@ -1,6 +1,6 @@
 # Expanded community skill library
 
-Added 3873 third-party skills. Installed total: 4427, including 4381 third-party skills from 38 repositories. No new AgentScope-authored skills were added.
+Added 3873 third-party skills. Installed total: 4427, including 4381 third-party skills from 38 repositories. No new AgentS-authored skills were added.
 
 Duplicate names and content were skipped. Each included skill retains its source commit, original assets, copyright/license notices, and SHA-256 checksum. Skills with unresolved/restricted licenses, invalid frontmatter, symlink packages, or oversized assets are listed in the [audit](skill-expansion-audit.json). Packages are installed as instructions and resources; external services and software may still require setup.
 

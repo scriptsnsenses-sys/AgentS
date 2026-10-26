@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# AgentScope installer — macOS & Linux
-# Run from the extracted AgentScope folder:
+# AgentS installer — macOS & Linux
+# Run from the extracted AgentS folder:
 #   bash installer/install.sh
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
 echo ""
-echo "  AgentScope installer"
+echo "  AgentS installer"
 echo "  ---------------------"
 echo "  Folder: $ROOT"
 echo ""
@@ -45,7 +45,7 @@ echo "[OK] Interface ready"
 
 # 4. Launcher in ~/bin (and a Start-menu entry on Linux)
 mkdir -p "$HOME/bin"
-cat > "$HOME/bin/agentscope" <<LAUNCH
+cat > "$HOME/bin/AgentS" <<LAUNCH
 #!/usr/bin/env bash
 cd "$ROOT"
 "$ROOT/node_modules/.bin/tsx" "$ROOT/server/main.ts" &
@@ -57,14 +57,14 @@ done
 ( command -v xdg-open >/dev/null && xdg-open http://127.0.0.1:4317 ) || open http://127.0.0.1:4317 2>/dev/null || true
 wait \$SERVER
 LAUNCH
-chmod +x "$HOME/bin/agentscope"
+chmod +x "$HOME/bin/AgentS"
 
 if command -v xdg-desktop-menu >/dev/null 2>&1 && [ -d "$HOME/.local/share/applications" ]; then
-  cat > "$HOME/.local/share/applications/agentscope.desktop" <<DESKTOP
+  cat > "$HOME/.local/share/applications/agents.desktop" <<DESKTOP
 [Desktop Entry]
 Type=Application
-Name=AgentScope
-Exec=$HOME/bin/agentscope
+Name=AgentS
+Exec=$HOME/bin/AgentS
 Terminal=false
 Categories=Development;
 DESKTOP
@@ -72,7 +72,7 @@ DESKTOP
 fi
 
 echo ""
-echo "  Installed. Start with:  ~/bin/agentscope"
+echo "  Installed. Start with:  ~/bin/agents"
 echo "  It serves locally at http://127.0.0.1:4317"
 echo "  Uninstall with:  bash installer/uninstall.sh"
 echo ""

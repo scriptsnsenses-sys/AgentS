@@ -1,6 +1,6 @@
 # Provider authentication
 
-AgentScope sends model requests from the local backend to the configured provider. API keys and custom header values are encrypted in the local vault; the browser receives only credential-presence flags. The vault must be unlocked after restarting the backend. A locked vault is not an empty key.
+AgentS sends model requests from the local backend to the configured provider. API keys and custom header values are encrypted in the local vault; the browser receives only credential-presence flags. The vault must be unlocked after restarting the backend. A locked vault is not an empty key.
 
 ## Ollama Local and Ollama Cloud
 
@@ -26,7 +26,7 @@ Local Ollama can run with a locked vault only when it has no saved credentials. 
 
 ## Troubleshooting
 
-- **Unlock your vault:** enter the vault passphrase in AgentScope, then send the task again. No provider request was sent while locked.
+- **Unlock your vault:** enter the vault passphrase in AgentS, then send the task again. No provider request was sent while locked.
 - **API key is missing:** add the key to the selected provider under Models.
 - **HTTP 401 or 403 after an authentication header was sent:** check that the key belongs to the selected provider and that the account has access. The error includes the destination, never the key or raw authentication-error body.
 - After editing backend source while running `pnpm dev`, restart that process. Frontend hot reload does not reload backend code.

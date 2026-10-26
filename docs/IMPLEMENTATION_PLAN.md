@@ -1,4 +1,4 @@
-# AgentScope by ozy — implementation plan
+# AgentS — implementation plan (a community build on AgentScope)
 
 ## Decisions
 
